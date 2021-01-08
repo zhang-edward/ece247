@@ -1,0 +1,4 @@
+{
+	"python.pythonPath": "/Users/edwardzhang/Desktop/ece247/HW5/HW5-code/.env/bin/python3.7",
+	"python.formatting.provider": "black"
+}

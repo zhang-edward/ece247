@@ -1,0 +1,895 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{CNN}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{convolutional-neural-networks}{%
+\section{Convolutional neural
+networks}\label{convolutional-neural-networks}}
+
+In this notebook, we'll put together our convolutional layers to
+implement a 3-layer CNN. Then, we'll ask you to implement a CNN that can
+achieve \textgreater{} 65\% validation error on CIFAR-10.
+
+CS231n has built a solid API for building these modular frameworks and
+training them, and we will use their very well implemented framework as
+opposed to ``reinventing the wheel.'' This includes using their Solver,
+various utility functions, their layer structure, and their
+implementation of fast CNN layers. This also includes nndl.fc\_net,
+nndl.layers, and nndl.layer\_utils. As in prior assignments, we thank
+Serena Yeung \& Justin Johnson for permission to use code written for
+the CS 231n class (cs231n.stanford.edu).
+
+If you have not completed the Spatial BatchNorm Notebook, please see the
+following description from that notebook:
+
+Please copy and paste your prior implemented code from HW \#4 to start
+this assignment. If you did not correctly implement the layers in HW
+\#4, you may collaborate with a classmate to use their layer
+implementations from HW \#4. You may also visit TA or Prof OH to correct
+your implementation.
+
+You'll want to copy and paste from HW \#4: - layers.py for your FC
+network layers, as well as batchnorm and dropout. - layer\_utils.py for
+your combined FC network layers. - optim.py for your optimizers.
+
+Be sure to place these in the \texttt{nndl/} directory so they're
+imported correctly. Note, as announced in class, we will not be
+releasing our solutions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} As usual, a bit of setup}
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{nndl}\PY{n+nn}{.}\PY{n+nn}{cnn} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{data\PYZus{}utils} \PY{k}{import} \PY{n}{get\PYZus{}CIFAR10\PYZus{}data}
+        \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{gradient\PYZus{}check} \PY{k}{import} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{,} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient}
+        \PY{k+kn}{from} \PY{n+nn}{nndl}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{nndl}\PY{n+nn}{.}\PY{n+nn}{conv\PYZus{}layers} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{fast\PYZus{}layers} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{solver} \PY{k}{import} \PY{n}{Solver}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{10.0}\PY{p}{,} \PY{l+m+mf}{8.0}\PY{p}{)} \PY{c+c1}{\PYZsh{} set default size of plots}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.interpolation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.cmap}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} for auto\PYZhy{}reloading external modules}
+        \PY{c+c1}{\PYZsh{} see http://stackoverflow.com/questions/1907993/autoreload\PYZhy{}of\PYZhy{}modules\PYZhy{}in\PYZhy{}ipython}
+        \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+        \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+        
+        \PY{k}{def} \PY{n+nf}{rel\PYZus{}error}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} returns relative error \PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Load the (preprocessed) CIFAR10 data.}
+        
+        \PY{n}{data} \PY{o}{=} \PY{n}{get\PYZus{}CIFAR10\PYZus{}data}\PY{p}{(}\PY{p}{)}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{data}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+X\_train: (49000, 3, 32, 32) 
+y\_train: (49000,) 
+X\_val: (1000, 3, 32, 32) 
+y\_val: (1000,) 
+X\_test: (1000, 3, 32, 32) 
+y\_test: (1000,) 
+
+    \end{Verbatim}
+
+    \hypertarget{three-layer-cnn}{%
+\subsection{Three layer CNN}\label{three-layer-cnn}}
+
+In this notebook, you will implement a three layer CNN. The
+\texttt{ThreeLayerConvNet} class is in \texttt{nndl/cnn.py}. You'll need
+to modify that code for this section, including the initialization, as
+well as the calculation of the loss and gradients. You should be able to
+use the building blocks you have either earlier coded or that we have
+provided. Be sure to use the fast layers.
+
+The architecture of this CNN will be:
+
+conv - relu - 2x2 max pool - affine - relu - affine - softmax
+
+We won't use batchnorm yet. You've also done enough of these to know how
+to debug; use the cells below.
+
+Note: As we are implementing several layers CNN networks. The gradient
+error can be expected for the \texttt{eval\_numerical\_gradient()}
+function. If your \texttt{W1\ max\ relative\ error} and
+\texttt{W2\ max\ relative\ error} are around or below 0.01, they should
+be acceptable. Other errors should be less than 1e-5.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{num\PYZus{}inputs} \PY{o}{=} \PY{l+m+mi}{2}
+        \PY{n}{input\PYZus{}dim} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{reg} \PY{o}{=} \PY{l+m+mf}{0.0}
+        \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{num\PYZus{}inputs}\PY{p}{,} \PY{o}{*}\PY{n}{input\PYZus{}dim}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{num\PYZus{}classes}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{num\PYZus{}inputs}\PY{p}{)}
+        
+        \PY{n}{model} \PY{o}{=} \PY{n}{ThreeLayerConvNet}\PY{p}{(}\PY{n}{num\PYZus{}filters}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{filter\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}
+                                  \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{n}{input\PYZus{}dim}\PY{p}{,} \PY{n}{hidden\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,}
+                                  \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float64}\PY{p}{)}
+        \PY{n}{loss}\PY{p}{,} \PY{n}{grads} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        \PY{k}{for} \PY{n}{param\PYZus{}name} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{grads}\PY{p}{)}\PY{p}{:}
+            \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{\PYZus{}}\PY{p}{:} \PY{n}{model}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{param\PYZus{}grad\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{model}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{n}{param\PYZus{}name}\PY{p}{]}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{)}
+            \PY{n}{e} \PY{o}{=} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{param\PYZus{}grad\PYZus{}num}\PY{p}{,} \PY{n}{grads}\PY{p}{[}\PY{n}{param\PYZus{}name}\PY{p}{]}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ max relative error: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{param\PYZus{}name}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{param\PYZus{}grad\PYZus{}num}\PY{p}{,} \PY{n}{grads}\PY{p}{[}\PY{n}{param\PYZus{}name}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+W1 max relative error: 0.0006507149025299291
+W2 max relative error: 0.00568316345265749
+W3 max relative error: 4.2889602827172216e-05
+b1 max relative error: 1.7735505300977068e-05
+b2 max relative error: 8.581484252488379e-07
+b3 max relative error: 1.1508232107915781e-09
+
+    \end{Verbatim}
+
+    \hypertarget{overfit-small-dataset}{%
+\subsubsection{Overfit small dataset}\label{overfit-small-dataset}}
+
+To check your CNN implementation, let's overfit a small dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{num\PYZus{}train} \PY{o}{=} \PY{l+m+mi}{100}
+        \PY{n}{small\PYZus{}data} \PY{o}{=} \PY{p}{\PYZob{}}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n}{num\PYZus{}train}\PY{p}{]}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n}{num\PYZus{}train}\PY{p}{]}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+        \PY{p}{\PYZcb{}}
+        
+        \PY{n}{model} \PY{o}{=} \PY{n}{ThreeLayerConvNet}\PY{p}{(}\PY{n}{weight\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}2}\PY{p}{)}
+        
+        \PY{n}{solver} \PY{o}{=} \PY{n}{Solver}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{small\PYZus{}data}\PY{p}{,}
+                        \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+                        \PY{n}{update\PYZus{}rule}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{n}{optim\PYZus{}config}\PY{o}{=}\PY{p}{\PYZob{}}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}
+                        \PY{p}{\PYZcb{}}\PY{p}{,}
+                        \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{print\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{solver}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(Iteration 1 / 20) loss: 2.381830
+(Epoch 0 / 10) train acc: 0.160000; val\_acc: 0.119000
+(Iteration 2 / 20) loss: 5.928924
+(Epoch 1 / 10) train acc: 0.190000; val\_acc: 0.130000
+(Iteration 3 / 20) loss: 2.551710
+(Iteration 4 / 20) loss: 2.735981
+(Epoch 2 / 10) train acc: 0.180000; val\_acc: 0.079000
+(Iteration 5 / 20) loss: 3.169556
+(Iteration 6 / 20) loss: 2.329534
+(Epoch 3 / 10) train acc: 0.260000; val\_acc: 0.169000
+(Iteration 7 / 20) loss: 2.298394
+(Iteration 8 / 20) loss: 1.884549
+(Epoch 4 / 10) train acc: 0.380000; val\_acc: 0.152000
+(Iteration 9 / 20) loss: 1.923281
+(Iteration 10 / 20) loss: 1.841728
+(Epoch 5 / 10) train acc: 0.470000; val\_acc: 0.155000
+(Iteration 11 / 20) loss: 1.494036
+(Iteration 12 / 20) loss: 1.623882
+(Epoch 6 / 10) train acc: 0.590000; val\_acc: 0.190000
+(Iteration 13 / 20) loss: 1.293669
+(Iteration 14 / 20) loss: 1.343754
+(Epoch 7 / 10) train acc: 0.620000; val\_acc: 0.191000
+(Iteration 15 / 20) loss: 1.286494
+(Iteration 16 / 20) loss: 0.993775
+(Epoch 8 / 10) train acc: 0.630000; val\_acc: 0.204000
+(Iteration 17 / 20) loss: 0.985476
+(Iteration 18 / 20) loss: 0.925707
+(Epoch 9 / 10) train acc: 0.680000; val\_acc: 0.243000
+(Iteration 19 / 20) loss: 1.135033
+(Iteration 20 / 20) loss: 0.856049
+(Epoch 10 / 10) train acc: 0.800000; val\_acc: 0.205000
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{solver}\PY{o}{.}\PY{n}{loss\PYZus{}history}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iteration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{solver}\PY{o}{.}\PY{n}{train\PYZus{}acc\PYZus{}history}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{solver}\PY{o}{.}\PY{n}{val\PYZus{}acc\PYZus{}history}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{train-the-network}{%
+\subsection{Train the network}\label{train-the-network}}
+
+Now we train the 3 layer CNN on CIFAR-10 and assess its accuracy.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{model} \PY{o}{=} \PY{n}{ThreeLayerConvNet}\PY{p}{(}\PY{n}{weight\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{hidden\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,} \PY{n}{reg}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+        
+        \PY{n}{solver} \PY{o}{=} \PY{n}{Solver}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{data}\PY{p}{,}
+                        \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+                        \PY{n}{update\PYZus{}rule}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{n}{optim\PYZus{}config}\PY{o}{=}\PY{p}{\PYZob{}}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}
+                        \PY{p}{\PYZcb{}}\PY{p}{,}
+                        \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{print\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+        \PY{n}{solver}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(Iteration 1 / 980) loss: 2.304654
+(Epoch 0 / 1) train acc: 0.102000; val\_acc: 0.093000
+(Iteration 21 / 980) loss: 2.131816
+(Iteration 41 / 980) loss: 2.020851
+(Iteration 61 / 980) loss: 2.117923
+(Iteration 81 / 980) loss: 2.010330
+(Iteration 101 / 980) loss: 1.687490
+(Iteration 121 / 980) loss: 1.882670
+(Iteration 141 / 980) loss: 1.939549
+(Iteration 161 / 980) loss: 1.552810
+(Iteration 181 / 980) loss: 1.823595
+(Iteration 201 / 980) loss: 1.808657
+(Iteration 221 / 980) loss: 1.854325
+(Iteration 241 / 980) loss: 1.761188
+(Iteration 261 / 980) loss: 1.800233
+(Iteration 281 / 980) loss: 1.567720
+(Iteration 301 / 980) loss: 1.539409
+(Iteration 321 / 980) loss: 2.138078
+(Iteration 341 / 980) loss: 1.746798
+(Iteration 361 / 980) loss: 1.840328
+(Iteration 381 / 980) loss: 1.881169
+(Iteration 401 / 980) loss: 1.591436
+(Iteration 421 / 980) loss: 1.656724
+(Iteration 441 / 980) loss: 1.778309
+(Iteration 461 / 980) loss: 1.720966
+(Iteration 481 / 980) loss: 1.856955
+(Iteration 501 / 980) loss: 1.624138
+(Iteration 521 / 980) loss: 1.587256
+(Iteration 541 / 980) loss: 1.542011
+(Iteration 561 / 980) loss: 1.555545
+(Iteration 581 / 980) loss: 1.396170
+(Iteration 601 / 980) loss: 1.293165
+(Iteration 621 / 980) loss: 1.270821
+(Iteration 641 / 980) loss: 1.691648
+(Iteration 661 / 980) loss: 1.570260
+(Iteration 681 / 980) loss: 1.743356
+(Iteration 701 / 980) loss: 1.474436
+(Iteration 721 / 980) loss: 1.414279
+(Iteration 741 / 980) loss: 1.339923
+(Iteration 761 / 980) loss: 1.782336
+(Iteration 781 / 980) loss: 1.740092
+(Iteration 801 / 980) loss: 1.427833
+(Iteration 821 / 980) loss: 1.437471
+(Iteration 841 / 980) loss: 1.542376
+(Iteration 861 / 980) loss: 1.576817
+(Iteration 881 / 980) loss: 1.577748
+(Iteration 901 / 980) loss: 1.722746
+(Iteration 921 / 980) loss: 1.507274
+(Iteration 941 / 980) loss: 1.371046
+(Iteration 961 / 980) loss: 1.376196
+(Epoch 1 / 1) train acc: 0.428000; val\_acc: 0.427000
+
+    \end{Verbatim}
+
+    \hypertarget{get-65-validation-accuracy-on-cifar-10.}{%
+\section{Get \textgreater{} 65\% validation accuracy on
+CIFAR-10.}\label{get-65-validation-accuracy-on-cifar-10.}}
+
+In the last part of the assignment, we'll now ask you to train a CNN to
+get better than 65\% validation accuracy on CIFAR-10.
+
+\hypertarget{things-you-should-try}{%
+\subsubsection{Things you should try:}\label{things-you-should-try}}
+
+\begin{itemize}
+\tightlist
+\item
+  Filter size: Above we used 7x7; but VGGNet and onwards showed stacks
+  of 3x3 filters are good.\\
+\item
+  Number of filters: Above we used 32 filters. Do more or fewer do
+  better?
+\item
+  Batch normalization: Try adding spatial batch normalization after
+  convolution layers and vanilla batch normalization after affine
+  layers. Do your networks train faster?
+\item
+  Network architecture: Can a deeper CNN do better? Consider these
+  architectures:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    {[}conv-relu-pool{]}xN - conv - relu - {[}affine{]}xM - {[}softmax
+    or SVM{]}
+  \item
+    {[}conv-relu-pool{]}XN - {[}affine{]}XM - {[}softmax or SVM{]}
+  \item
+    {[}conv-relu-conv-relu-pool{]}xN - {[}affine{]}xM - {[}softmax or
+    SVM{]}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{tips-for-training}{%
+\subsubsection{Tips for training}\label{tips-for-training}}
+
+For each network architecture that you try, you should tune the learning
+rate and regularization strength. When doing this there are a couple of
+important things to keep in mind:
+
+\begin{itemize}
+\tightlist
+\item
+  If the parameters are working well, you should see improvement within
+  a few hundred iterations
+\item
+  Remember the coarse-to-fine approach for hyperparameter tuning: start
+  by testing a large range of hyperparameters for just a few training
+  iterations to find the combinations of parameters that are working at
+  all.
+\item
+  Once you have found some sets of parameters that seem to work, search
+  more finely around these parameters. You may need to train for more
+  epochs.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+        \PY{c+c1}{\PYZsh{} YOUR CODE HERE:}
+        \PY{c+c1}{\PYZsh{}   Implement a CNN to achieve greater than 65\PYZpc{} validation accuracy}
+        \PY{c+c1}{\PYZsh{}   on CIFAR\PYZhy{}10.}
+        \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+        
+        \PY{n}{optimizer} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}3}
+        \PY{n}{lr\PYZus{}decay} \PY{o}{=} \PY{l+m+mf}{0.9}
+        \PY{n}{num\PYZus{}filters} \PY{o}{=} \PY{l+m+mi}{64}
+        \PY{n}{filter\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{7}
+        
+        \PY{n}{model} \PY{o}{=} \PY{n}{ThreeLayerConvNet}\PY{p}{(}\PY{n}{weight\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{hidden\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,} \PY{n}{reg}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+        
+        \PY{n}{solver} \PY{o}{=} \PY{n}{Solver}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{data}\PY{p}{,}
+                        \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{n}{update\PYZus{}rule}\PY{o}{=}\PY{n}{optimizer}\PY{p}{,}
+                        \PY{n}{optim\PYZus{}config}\PY{o}{=}\PY{p}{\PYZob{}}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{learning\PYZus{}rate}\PY{p}{,}
+                        \PY{p}{\PYZcb{}}\PY{p}{,}
+                        \PY{n}{lr\PYZus{}decay}\PY{o}{=}\PY{n}{lr\PYZus{}decay}\PY{p}{,}
+                        \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{print\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n}{solver}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+        \PY{c+c1}{\PYZsh{} END YOUR CODE HERE}
+        \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(Iteration 1 / 9800) loss: 2.304452
+(Epoch 0 / 20) train acc: 0.116000; val\_acc: 0.105000
+(Iteration 51 / 9800) loss: 1.853642
+(Iteration 101 / 9800) loss: 1.754378
+(Iteration 151 / 9800) loss: 1.585016
+(Iteration 201 / 9800) loss: 1.665315
+(Iteration 251 / 9800) loss: 1.494164
+(Iteration 301 / 9800) loss: 1.452221
+(Iteration 351 / 9800) loss: 1.353152
+(Iteration 401 / 9800) loss: 1.504349
+(Iteration 451 / 9800) loss: 1.365023
+(Epoch 1 / 20) train acc: 0.466000; val\_acc: 0.491000
+(Iteration 501 / 9800) loss: 1.385573
+(Iteration 551 / 9800) loss: 1.383519
+(Iteration 601 / 9800) loss: 1.342313
+(Iteration 651 / 9800) loss: 1.418668
+(Iteration 701 / 9800) loss: 1.202109
+(Iteration 751 / 9800) loss: 1.360571
+(Iteration 801 / 9800) loss: 1.141037
+(Iteration 851 / 9800) loss: 1.203072
+(Iteration 901 / 9800) loss: 1.451928
+(Iteration 951 / 9800) loss: 1.349903
+(Epoch 2 / 20) train acc: 0.530000; val\_acc: 0.550000
+(Iteration 1001 / 9800) loss: 1.270969
+(Iteration 1051 / 9800) loss: 1.315878
+(Iteration 1101 / 9800) loss: 1.212279
+(Iteration 1151 / 9800) loss: 1.474329
+(Iteration 1201 / 9800) loss: 1.144212
+(Iteration 1251 / 9800) loss: 1.383498
+(Iteration 1301 / 9800) loss: 1.388701
+(Iteration 1351 / 9800) loss: 1.153182
+(Iteration 1401 / 9800) loss: 1.103188
+(Iteration 1451 / 9800) loss: 1.214557
+(Epoch 3 / 20) train acc: 0.580000; val\_acc: 0.578000
+(Iteration 1501 / 9800) loss: 1.166137
+(Iteration 1551 / 9800) loss: 1.163752
+(Iteration 1601 / 9800) loss: 1.019426
+(Iteration 1651 / 9800) loss: 1.259598
+(Iteration 1701 / 9800) loss: 1.119750
+(Iteration 1751 / 9800) loss: 1.221735
+(Iteration 1801 / 9800) loss: 1.102449
+(Iteration 1851 / 9800) loss: 1.122105
+(Iteration 1901 / 9800) loss: 1.149631
+(Iteration 1951 / 9800) loss: 1.077087
+(Epoch 4 / 20) train acc: 0.650000; val\_acc: 0.619000
+(Iteration 2001 / 9800) loss: 0.993838
+(Iteration 2051 / 9800) loss: 1.002742
+(Iteration 2101 / 9800) loss: 0.910465
+(Iteration 2151 / 9800) loss: 1.000292
+(Iteration 2201 / 9800) loss: 0.944183
+(Iteration 2251 / 9800) loss: 1.031122
+(Iteration 2301 / 9800) loss: 0.908113
+(Iteration 2351 / 9800) loss: 1.062253
+(Iteration 2401 / 9800) loss: 1.203044
+(Epoch 5 / 20) train acc: 0.664000; val\_acc: 0.616000
+(Iteration 2451 / 9800) loss: 1.003779
+(Iteration 2501 / 9800) loss: 1.040453
+(Iteration 2551 / 9800) loss: 0.933268
+(Iteration 2601 / 9800) loss: 0.988178
+(Iteration 2651 / 9800) loss: 1.014140
+(Iteration 2701 / 9800) loss: 0.793451
+(Iteration 2751 / 9800) loss: 1.217258
+(Iteration 2801 / 9800) loss: 1.016398
+(Iteration 2851 / 9800) loss: 0.805968
+(Iteration 2901 / 9800) loss: 1.175808
+(Epoch 6 / 20) train acc: 0.656000; val\_acc: 0.605000
+(Iteration 2951 / 9800) loss: 0.941986
+(Iteration 3001 / 9800) loss: 0.982846
+(Iteration 3051 / 9800) loss: 1.005875
+(Iteration 3101 / 9800) loss: 0.929024
+(Iteration 3151 / 9800) loss: 0.911446
+(Iteration 3201 / 9800) loss: 0.831955
+(Iteration 3251 / 9800) loss: 0.983365
+(Iteration 3301 / 9800) loss: 1.084643
+(Iteration 3351 / 9800) loss: 0.882134
+(Iteration 3401 / 9800) loss: 0.907717
+(Epoch 7 / 20) train acc: 0.693000; val\_acc: 0.643000
+(Iteration 3451 / 9800) loss: 0.926780
+(Iteration 3501 / 9800) loss: 0.871370
+(Iteration 3551 / 9800) loss: 0.916746
+(Iteration 3601 / 9800) loss: 0.957859
+(Iteration 3651 / 9800) loss: 0.945472
+(Iteration 3701 / 9800) loss: 0.957690
+(Iteration 3751 / 9800) loss: 0.890934
+(Iteration 3801 / 9800) loss: 0.926908
+(Iteration 3851 / 9800) loss: 1.042560
+(Iteration 3901 / 9800) loss: 0.858834
+(Epoch 8 / 20) train acc: 0.662000; val\_acc: 0.633000
+(Iteration 3951 / 9800) loss: 0.949428
+(Iteration 4001 / 9800) loss: 1.022474
+(Iteration 4051 / 9800) loss: 0.992603
+(Iteration 4101 / 9800) loss: 1.047574
+(Iteration 4151 / 9800) loss: 0.931832
+(Iteration 4201 / 9800) loss: 0.772472
+(Iteration 4251 / 9800) loss: 0.980237
+(Iteration 4301 / 9800) loss: 1.027331
+(Iteration 4351 / 9800) loss: 0.847622
+(Iteration 4401 / 9800) loss: 0.800675
+(Epoch 9 / 20) train acc: 0.737000; val\_acc: 0.638000
+(Iteration 4451 / 9800) loss: 0.834715
+(Iteration 4501 / 9800) loss: 0.677432
+(Iteration 4551 / 9800) loss: 1.080039
+(Iteration 4601 / 9800) loss: 0.716728
+(Iteration 4651 / 9800) loss: 0.806540
+(Iteration 4701 / 9800) loss: 0.927516
+(Iteration 4751 / 9800) loss: 0.875024
+(Iteration 4801 / 9800) loss: 1.042306
+(Iteration 4851 / 9800) loss: 0.882808
+(Epoch 10 / 20) train acc: 0.721000; val\_acc: 0.647000
+(Iteration 4901 / 9800) loss: 0.892720
+(Iteration 4951 / 9800) loss: 0.772937
+(Iteration 5001 / 9800) loss: 0.810763
+(Iteration 5051 / 9800) loss: 0.746560
+(Iteration 5101 / 9800) loss: 0.696696
+(Iteration 5151 / 9800) loss: 0.815378
+(Iteration 5201 / 9800) loss: 0.859296
+(Iteration 5251 / 9800) loss: 0.845369
+(Iteration 5301 / 9800) loss: 0.803124
+(Iteration 5351 / 9800) loss: 0.678393
+(Epoch 11 / 20) train acc: 0.741000; val\_acc: 0.662000
+(Iteration 5401 / 9800) loss: 0.717994
+(Iteration 5451 / 9800) loss: 0.730793
+(Iteration 5501 / 9800) loss: 0.832582
+(Iteration 5551 / 9800) loss: 0.773037
+(Iteration 5601 / 9800) loss: 0.845416
+(Iteration 5651 / 9800) loss: 0.783072
+(Iteration 5701 / 9800) loss: 0.775187
+(Iteration 5751 / 9800) loss: 0.882563
+(Iteration 5801 / 9800) loss: 1.027854
+(Iteration 5851 / 9800) loss: 0.830116
+(Epoch 12 / 20) train acc: 0.759000; val\_acc: 0.651000
+(Iteration 5901 / 9800) loss: 0.705709
+(Iteration 5951 / 9800) loss: 0.968117
+(Iteration 6001 / 9800) loss: 0.736151
+(Iteration 6051 / 9800) loss: 0.869076
+(Iteration 6101 / 9800) loss: 0.766911
+(Iteration 6151 / 9800) loss: 0.927024
+(Iteration 6201 / 9800) loss: 0.662418
+(Iteration 6251 / 9800) loss: 0.801865
+(Iteration 6301 / 9800) loss: 0.654079
+(Iteration 6351 / 9800) loss: 0.785943
+(Epoch 13 / 20) train acc: 0.754000; val\_acc: 0.648000
+(Iteration 6401 / 9800) loss: 0.883470
+(Iteration 6451 / 9800) loss: 0.720435
+(Iteration 6501 / 9800) loss: 0.812503
+(Iteration 6551 / 9800) loss: 0.775922
+(Iteration 6601 / 9800) loss: 0.895231
+(Iteration 6651 / 9800) loss: 0.766190
+(Iteration 6701 / 9800) loss: 0.717640
+(Iteration 6751 / 9800) loss: 0.738909
+(Iteration 6801 / 9800) loss: 0.755856
+(Iteration 6851 / 9800) loss: 0.754592
+(Epoch 14 / 20) train acc: 0.751000; val\_acc: 0.651000
+(Iteration 6901 / 9800) loss: 0.691371
+(Iteration 6951 / 9800) loss: 0.669393
+(Iteration 7001 / 9800) loss: 0.748512
+(Iteration 7051 / 9800) loss: 0.754870
+(Iteration 7101 / 9800) loss: 0.611698
+(Iteration 7151 / 9800) loss: 0.620703
+(Iteration 7201 / 9800) loss: 0.804109
+(Iteration 7251 / 9800) loss: 0.721399
+(Iteration 7301 / 9800) loss: 0.729168
+(Epoch 15 / 20) train acc: 0.797000; val\_acc: 0.663000
+(Iteration 7351 / 9800) loss: 0.794741
+(Iteration 7401 / 9800) loss: 0.685225
+(Iteration 7451 / 9800) loss: 0.659901
+(Iteration 7501 / 9800) loss: 0.654125
+(Iteration 7551 / 9800) loss: 0.897542
+(Iteration 7601 / 9800) loss: 0.702215
+(Iteration 7651 / 9800) loss: 0.958143
+(Iteration 7701 / 9800) loss: 0.776002
+(Iteration 7751 / 9800) loss: 0.690163
+(Iteration 7801 / 9800) loss: 0.636967
+(Epoch 16 / 20) train acc: 0.773000; val\_acc: 0.651000
+(Iteration 7851 / 9800) loss: 0.746292
+(Iteration 7901 / 9800) loss: 0.577357
+(Iteration 7951 / 9800) loss: 0.663366
+(Iteration 8001 / 9800) loss: 0.851368
+(Iteration 8051 / 9800) loss: 0.727580
+(Iteration 8101 / 9800) loss: 0.683947
+(Iteration 8151 / 9800) loss: 0.626854
+(Iteration 8201 / 9800) loss: 0.800301
+(Iteration 8251 / 9800) loss: 0.736672
+(Iteration 8301 / 9800) loss: 0.818214
+(Epoch 17 / 20) train acc: 0.760000; val\_acc: 0.650000
+(Iteration 8351 / 9800) loss: 0.802396
+(Iteration 8401 / 9800) loss: 0.771348
+(Iteration 8451 / 9800) loss: 0.622872
+(Iteration 8501 / 9800) loss: 0.513887
+(Iteration 8551 / 9800) loss: 0.539145
+(Iteration 8601 / 9800) loss: 0.769144
+(Iteration 8651 / 9800) loss: 0.708705
+(Iteration 8701 / 9800) loss: 0.758026
+(Iteration 8751 / 9800) loss: 0.806010
+(Iteration 8801 / 9800) loss: 0.568705
+(Epoch 18 / 20) train acc: 0.800000; val\_acc: 0.661000
+(Iteration 8851 / 9800) loss: 0.646179
+(Iteration 8901 / 9800) loss: 0.531616
+(Iteration 8951 / 9800) loss: 0.604449
+(Iteration 9001 / 9800) loss: 0.779766
+(Iteration 9051 / 9800) loss: 0.622247
+(Iteration 9101 / 9800) loss: 0.680818
+(Iteration 9151 / 9800) loss: 0.428375
+(Iteration 9201 / 9800) loss: 0.928653
+(Iteration 9251 / 9800) loss: 0.379808
+(Iteration 9301 / 9800) loss: 0.789477
+(Epoch 19 / 20) train acc: 0.817000; val\_acc: 0.646000
+(Iteration 9351 / 9800) loss: 0.763423
+(Iteration 9401 / 9800) loss: 0.797257
+(Iteration 9451 / 9800) loss: 0.708895
+(Iteration 9501 / 9800) loss: 0.808784
+(Iteration 9551 / 9800) loss: 0.568338
+(Iteration 9601 / 9800) loss: 0.553148
+(Iteration 9651 / 9800) loss: 0.637789
+(Iteration 9701 / 9800) loss: 0.642199
+(Iteration 9751 / 9800) loss: 0.614586
+(Epoch 20 / 20) train acc: 0.807000; val\_acc: 0.652000
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
